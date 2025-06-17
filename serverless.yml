@@ -1,0 +1,19 @@
+service: taller-nest-microservicios
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1 # Cambia la región si es necesario
+  memorySize: 128 # Ajusta según tus necesidades
+  timeout: 10 # Tiempo máximo de ejecución en segundos
+
+functions:
+  app:
+    handler: dist/lambda.handler
+    events:
+      - httpApi:
+          path: /
+          method: ANY
+      - httpApi:
+          path: /{proxy+}
+          method: ANY
